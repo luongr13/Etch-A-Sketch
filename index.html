@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Etch-A-Sketch</title>
+</head>
+<body>
+    <div class="container"></div>
+
+    <script>
+        function createGrid(numRows, numCols) {
+            let container = document.querySelector(".container");
+            let grid = document.createElement("div");
+            grid.setAttribute("class", "grid");
+
+            for (let i = 0; i < numRows; ++i) {
+                let row = document.createElement("div");
+                row.setAttribute("class", "row");
+
+                for (let j = 0; j < numCols; ++j) {
+                    let box = document.createElement("div");
+                    box.setAttribute("class", "box");
+                    row.appendChild(box);
+                }
+                grid.append(row);
+            }
+            container.append(grid);
+        }
+
+
+        function addHoverEffect() {
+            let arr = document.querySelectorAll(".row");
+
+            arr.forEach((element) => {
+                element.addEventListener('mouseover', (e) => {
+                    let grid = document.querySelector(".grid");
+                    if (e.target.className == "box" && grid.className == "grid active") {
+                        e.target.setAttribute("class", "box fill");
+                    }
+                });
+
+                element.addEventListener('click', (e) => {
+                    let grid = document.querySelector(".grid");
+                    if (grid.className == "grid") {
+                        grid.setAttribute("class", "grid active");
+                    } else {
+                        grid.setAttribute("class", "grid");
+                    }
+                });
+            });
+        }
+
+        createGrid(16, 16);
+        addHoverEffect();
+ 
+    </script>
+</body>
+</html>
