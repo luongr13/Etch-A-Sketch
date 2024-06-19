@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Etch-a-Sketch</title>
 </head>
 <body>
     <div class="container">
-        <h1>Etch-a-Sketch</h1>
         <main>
             <div class="left">
-
+                <button>Clear</button>
+                <button>Random Colors</button>
             </div>
             <div class="right">
+                <h1 class="gochi-hand-heavy">Etch-a-Sketch</h1>
                 <div class="bar-container">
                     <input type="range" min="10" max="100" value="10" step="10" id="range-bar">
                 </div>
-                <p id="range-value">Grid Size: 10x10</p>
                 <div class="grid"></div>
             </div>
         </main>
@@ -71,8 +75,6 @@
         function printSliderValue() {
             let range = document.querySelector("#range-bar");
             range.addEventListener("input", (e) => {
-                let p = document.querySelector("#range-value");
-                p.textContent = "Grid Size: " + range.value + "x" + range.value ;
                 removeGrid();
                 createGrid(range.value, range.value);
                 addHoverEffect();
