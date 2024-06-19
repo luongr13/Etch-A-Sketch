@@ -69,6 +69,16 @@ main {
 
 button {
   padding: 0.5em 3em;
+  background: #87bdd8;
+  color: white;
+  border: none;
+  border-radius: 50px;
+}
+
+button:hover {
+  cursor: grab;
+  background: #87bdc8;
+
 }
 
 .container {
