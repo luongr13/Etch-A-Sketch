@@ -10,8 +10,14 @@
     <div class="container">
         <h1>Etch-a-Sketch</h1>
         <main>
-            <div class="left"></div>
+            <div class="left">
+
+            </div>
             <div class="right">
+                <div class="bar-container">
+                    <input type="range" min="10" max="100" value="10" step="10" id="range-bar">
+                </div>
+                <p id="range-value">Grid Size: 10x10</p>
                 <div class="grid"></div>
             </div>
         </main>
@@ -34,6 +40,11 @@
             }
         }
 
+        function removeGrid() {
+            let grid = document.querySelector(".grid");
+            children = Array.from(grid.children);
+            children.forEach((child) => { child.remove(); });
+        }
 
         function addHoverEffect() {
             let arr = document.querySelectorAll(".row");
@@ -57,8 +68,21 @@
             });
         }
 
-        createGrid(20, 20);
+        function printSliderValue() {
+            let range = document.querySelector("#range-bar");
+            range.addEventListener("input", (e) => {
+                let p = document.querySelector("#range-value");
+                p.textContent = "Grid Size: " + range.value + "x" + range.value ;
+                removeGrid();
+                createGrid(range.value, range.value);
+                addHoverEffect();
+            });
+        }
+
+
+        createGrid(10, 10);
         addHoverEffect();
+        printSliderValue();
  
     </script>
 </body>
