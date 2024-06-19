@@ -12,17 +12,19 @@
 </head>
 <body>
     <div class="container">
+        <h1 class="gochi-hand-heavy">Etch-a-Sketch</h1>
         <main>
             <div class="left">
-                <button>Clear</button>
+                <button id="default">Default Color</button>
                 <button>Random Colors</button>
+                <button id="eraser">Eraser</button>
+                <button>Clear</button>
             </div>
             <div class="right">
-                <h1 class="gochi-hand-heavy">Etch-a-Sketch</h1>
+                <div class="grid"></div>
                 <div class="bar-container">
                     <input type="range" min="10" max="100" value="10" step="10" id="range-bar">
                 </div>
-                <div class="grid"></div>
             </div>
         </main>
     </div>
@@ -50,25 +52,23 @@
             children.forEach((child) => { child.remove(); });
         }
 
-        function addHoverEffect() {
-            let arr = document.querySelectorAll(".row");
+        function addHoverEffect(color) {
+            let grid = document.querySelector(".grid");
+            grid.addEventListener('mousemove', (e) => {
+                if (e.target.className == "box" && grid.className == "grid active") {
+                    e.target.style.background = color;
+                }
+            });
+        }
 
-            arr.forEach((element) => {
-                element.addEventListener('mousemove', (e) => {
-                    let grid = document.querySelector(".grid");
-                    if (e.target.className == "box" && grid.className == "grid active") {
-                        e.target.setAttribute("class", "box fill");
-                    }
-                });
-
-                element.addEventListener('click', (e) => {
-                    let grid = document.querySelector(".grid");
-                    if (grid.className == "grid") {
-                        grid.setAttribute("class", "grid active");
-                    } else {
-                        grid.setAttribute("class", "grid");
-                    }
-                });
+        function addGridToggle() {
+            let grid = document.querySelector(".grid");
+            grid.addEventListener('click', (e) => {
+                if (grid.className == "grid") {
+                    grid.setAttribute("class", "grid active");
+                } else {
+                    grid.setAttribute("class", "grid");
+                }
             });
         }
 
@@ -77,14 +77,31 @@
             range.addEventListener("input", (e) => {
                 removeGrid();
                 createGrid(range.value, range.value);
-                addHoverEffect();
+                addHoverEffect("#000000");
+                addGridToggle();
             });
         }
 
+        function setEraserButton() {
+            let eraser_btn = document.querySelector("#eraser");
+            eraser_btn.addEventListener("click", () => addHoverEffect(""));
+        }
 
+        function setDefaultButton() {
+            let default_btn = document.querySelector("#default");
+            default_btn.addEventListener("click", () => addHoverEffect("black"));
+        }
+
+        // Starting State
         createGrid(10, 10);
-        addHoverEffect();
+        addHoverEffect("#000000");
+        addGridToggle();
         printSliderValue();
+
+        // Buttons
+        setDefaultButton();
+        setEraserButton();
+
  
     </script>
 </body>
