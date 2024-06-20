@@ -54,7 +54,11 @@
             let grid = document.querySelector(".grid"); 
             grid.addEventListener('mouseover', (e) => {
                 if (e.target.className == "box" && grid.className == "grid active") {
-                    e.target.style.background = color;
+                    e.target.setAttribute("style", 
+                        "background: " + color + "; " +
+                        "opacity: 1; " +
+                        "transition: opacity 1.5s;"
+                    );
                 }
             });
         }
@@ -63,7 +67,11 @@
             let grid = document.querySelector(".grid"); 
             grid.addEventListener('mouseover', (e) => {
                 if (e.target.className == "box" && grid.className == "grid active") {
-                    e.target.style.background = getRandomColor();
+                    e.target.setAttribute("style", 
+                        "background: " + getRandomColor() + "; " +
+                        "opacity: 1; " +
+                        "transition: opacity 0.5s;"
+                    );
                 }
             });
         }
