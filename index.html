@@ -15,10 +15,10 @@
         <main>
             <div class="left">
                 <h1 class="gochi-hand-heavy">Etch-a-Sketch</h1>
-                <button id="default">Default Color</button>
-                <button>Random Colors</button>
-                <button id="eraser">Eraser</button>
-                <button>Clear</button>
+                <button id="default-btn">Default Color</button>
+                <button id="random-colors-btn">Random Colors</button>
+                <button id="eraser-btn">Eraser</button>
+                <button id="clear-btn">Clear</button>
             </div>
             <div class="right">
                 <div class="grid"></div>
@@ -32,11 +32,9 @@
     <script>
         function createGrid(numRows, numCols) {
             let grid = document.querySelector(".grid");
-
             for (let i = 0; i < numRows; ++i) {
                 let row = document.createElement("div");
                 row.setAttribute("class", "row");
-
                 for (let j = 0; j < numCols; ++j) {
                     let box = document.createElement("div");
                     box.setAttribute("class", "box");
@@ -51,14 +49,34 @@
             children = Array.from(grid.children);
             children.forEach((child) => { child.remove(); });
         }
-
+        
         function addHoverEffect(color) {
             let grid = document.querySelector(".grid"); 
-            grid.addEventListener('mousemove', (e) => {
+            grid.addEventListener('mouseover', (e) => {
                 if (e.target.className == "box" && grid.className == "grid active") {
                     e.target.style.background = color;
                 }
             });
+        }
+
+        function addRandomHoverEffect() {
+            let grid = document.querySelector(".grid"); 
+            grid.addEventListener('mouseover', (e) => {
+                if (e.target.className == "box" && grid.className == "grid active") {
+                    e.target.style.background = getRandomColor();
+                }
+            });
+        }
+
+        // Credits to Brenden
+        // https://css-tricks.com/snippets/javascript/random-hex-color/
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.round(Math.random() * 15)];
+            }
+            return color;
         }
 
         function addGridToggle() {
@@ -80,15 +98,34 @@
             });
         }
 
-        function setEraserButton() {
-            let eraser_btn = document.querySelector("#eraser");
-            eraser_btn.addEventListener("click", () => addHoverEffect(""));
+        function clearGrid() {
+            const rows = document.querySelector(".grid").children;
+            for (let i = 0; i < rows.length; ++i) {
+                const boxes = rows[i].children;
+                for (let j = 0; j < boxes.length; ++j) {
+                    boxes[j].style.background = "";
+                }
+            }
+            
         }
 
-        function setDefaultButton() {
-            let default_btn = document.querySelector("#default");
-            default_btn.addEventListener("click", () => addHoverEffect("black"));
+        function setButtons() {
+            let left_div = document.querySelector(".left");
+            left_div.addEventListener("click", (e) => {
+                if (e.target.id == 'clear-btn') {
+                    clearGrid();
+                } else if (e.target.id == 'eraser-btn') {
+                    addHoverEffect('');
+                } else if (e.target.id == 'default-btn') {
+                    addHoverEffect('black');
+                } else if (e.target.id == 'random-colors-btn') {
+                    addRandomHoverEffect();
+                }
+            })
         }
+
+
+
 
         // Starting State
         createGrid(10, 10);
@@ -96,9 +133,17 @@
         addGridToggle();
         printSliderValue();
 
+        setButtons();
         // Buttons
-        setDefaultButton();
-        setEraserButton();
+        // let default_btn = document.querySelector("#default-btn");
+        // default_btn.addEventListener("click", () => addHoverEffect("black"));
+
+        // let eraser_btn = document.querySelector("#eraser-btn");
+        // eraser_btn.addEventListener("click", () => addHoverEffect(""));
+
+        // let clear_btn = document.querySelector('#clear-btn');
+        // clear_btn.addEventListener("click", )
+
 
  
     </script>
