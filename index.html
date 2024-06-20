@@ -53,7 +53,7 @@
         }
 
         function addHoverEffect(color) {
-            let grid = document.querySelector(".grid");
+            let grid = document.querySelector(".grid"); 
             grid.addEventListener('mousemove', (e) => {
                 if (e.target.className == "box" && grid.className == "grid active") {
                     e.target.style.background = color;
@@ -77,8 +77,6 @@
             range.addEventListener("input", (e) => {
                 removeGrid();
                 createGrid(range.value, range.value);
-                addHoverEffect("#000000");
-                addGridToggle();
             });
         }
 
@@ -94,7 +92,7 @@
 
         // Starting State
         createGrid(10, 10);
-        addHoverEffect("#000000");
+        addHoverEffect("black");
         addGridToggle();
         printSliderValue();
 
